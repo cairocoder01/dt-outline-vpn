@@ -80,17 +80,12 @@ class Disciple_Tools_Outline_VPN_Menu {
             <h2 class="nav-tab-wrapper">
                 <a href="<?php echo esc_attr( $link ) . 'general' ?>"
                    class="nav-tab <?php echo esc_html( ( $tab == 'general' || !isset( $tab ) ) ? 'nav-tab-active' : '' ); ?>">General</a>
-                <a href="<?php echo esc_attr( $link ) . 'second' ?>" class="nav-tab <?php echo esc_html( ( $tab == 'second' ) ? 'nav-tab-active' : '' ); ?>">Second</a>
             </h2>
 
             <?php
             switch ( $tab ) {
                 case 'general':
                     $object = new Disciple_Tools_Outline_VPN_Tab_General();
-                    $object->content();
-                    break;
-                case 'second':
-                    $object = new Disciple_Tools_Outline_VPN_Tab_Second();
                     $object->content();
                     break;
                 default:
@@ -110,6 +105,8 @@ Disciple_Tools_Outline_VPN_Menu::instance();
  */
 class Disciple_Tools_Outline_VPN_Tab_General {
     public function content() {
+
+        $this->save_settings();
         ?>
         <div class="wrap">
             <div id="poststuff">
@@ -137,124 +134,58 @@ class Disciple_Tools_Outline_VPN_Tab_General {
     }
 
     public function main_column() {
+        $webhook_url = get_option( "dt_outline_vpn_webhook_url" );
         ?>
-        <!-- Box -->
-        <table class="widefat striped">
-            <thead>
+        <form method="POST" action="">
+        <?php wp_nonce_field( 'security_headers', 'security_headers_nonce' ); ?>
+
+            <!-- Box -->
+            <table class="widefat striped">
+                <thead>
+                    <tr>
+                        <th>Settings</th>
+                    </tr>
+                </thead>
+                <tbody>
                 <tr>
-                    <th>Header</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        Content
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <br>
-        <!-- End Box -->
+                    <th><label for="webhook_url">Webhook URL</label></th>
+                        <td>
+                            <input type="text"
+                                   name="webhook_url"
+                                   id="webhook_url"
+                                   value="<?php echo esc_attr( $webhook_url ) ?>"
+                                   style="width:100%;"
+                            />
+                            <div class="muted">Webhook to be sent user data when a user is created or needs their auth token re-sent.</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button type="submit" class="button">Update</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- End Box -->
+        </form>
         <?php
     }
 
     public function right_column() {
         ?>
-        <!-- Box -->
-        <table class="widefat striped">
-            <thead>
-                <tr>
-                    <th>Information</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    Content
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <br>
-        <!-- End Box -->
         <?php
+    }
+
+    public function save_settings() {
+        if ( !empty( $_POST ) ){
+            if ( isset( $_POST['security_headers_nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['security_headers_nonce'] ), 'security_headers' ) ) {
+                if ( isset( $_POST['webhook_url'] ) ) {
+                    update_option( "dt_outline_vpn_webhook_url", sanitize_text_field( wp_unslash( $_POST['webhook_url'] ) ) );
+                }
+            }
+        }
     }
 }
 
-
-/**
- * Class Disciple_Tools_Outline_VPN_Tab_Second
- */
-class Disciple_Tools_Outline_VPN_Tab_Second {
-    public function content() {
-        ?>
-        <div class="wrap">
-            <div id="poststuff">
-                <div id="post-body" class="metabox-holder columns-2">
-                    <div id="post-body-content">
-                        <!-- Main Column -->
-
-                        <?php $this->main_column() ?>
-
-                        <!-- End Main Column -->
-                    </div><!-- end post-body-content -->
-                    <div id="postbox-container-1" class="postbox-container">
-                        <!-- Right Column -->
-
-                        <?php $this->right_column() ?>
-
-                        <!-- End Right Column -->
-                    </div><!-- postbox-container 1 -->
-                    <div id="postbox-container-2" class="postbox-container">
-                    </div><!-- postbox-container 2 -->
-                </div><!-- post-body meta box container -->
-            </div><!--poststuff end -->
-        </div><!-- wrap end -->
-        <?php
-    }
-
-    public function main_column() {
-        ?>
-        <!-- Box -->
-        <table class="widefat striped">
-            <thead>
-                <tr>
-                    <th>Header</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        Content
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <br>
-        <!-- End Box -->
-        <?php
-    }
-
-    public function right_column() {
-        ?>
-        <!-- Box -->
-        <table class="widefat striped">
-            <thead>
-                <tr>
-                    <th>Information</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    Content
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <br>
-        <!-- End Box -->
-        <?php
-    }
-}
 
