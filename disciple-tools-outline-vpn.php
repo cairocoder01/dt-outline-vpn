@@ -143,7 +143,6 @@ class Disciple_Tools_Outline_VPN {
             // We're attempting to switch to another user:
             case 'trigger_outline_vpn_webhook':
                 $link = get_option( "dt_outline_vpn_webhook_url" );
-                // curl -X POST https://hooks.zapier.com/hooks/catch/5754004/o2dljqf/ -d '{ "data__user_email" : "nharvest@protonmail.com"}'
                 if ( isset( $_REQUEST['email'] ) && isset( $link ) ) {
                     $email = $_REQUEST['email'];
                     // error_log( 'triggered: ' . $email);
