@@ -93,23 +93,97 @@ class Disciple_Tools_Outline_VPN {
         $this->i18n();
 
         if ( is_admin() ) { // adds links to the plugin description area in the plugin admin list.
-            add_filter( 'plugin_row_meta', [ $this, 'plugin_description_links' ], 10, 4 );
+
+            add_filter( 'user_row_actions', array( $this, 'filter_user_row_actions' ), 10, 2 );
+            add_action( 'init', array( $this, 'action_init' ) );
         }
+
     }
 
     /**
-     * Filters the array of row meta for each/specific plugin in the Plugins list table.
-     * Appends additional links below each/specific plugin on the plugins page.
+     * Adds a 'Switch To' link to each list of user actions on the Users screen.
+     *
+     * @param array<string,string> $actions Array of actions to display for this user row.
+     * @param WP_User              $user    The user object displayed in this row.
+     * @return array<string,string> Array of actions to display for this user row.
      */
-    public function plugin_description_links( $links_array, $plugin_file_name, $plugin_data, $status ) {
-        if ( strpos( $plugin_file_name, basename( __FILE__ ) ) ) {
-            // You can still use `array_unshift()` to add links at the beginning.
+    public function filter_user_row_actions( array $actions, WP_User $user ) {
+        // $link = self::maybe_switch_url( $user );
+        $link = '?action=trigger_outline_vpn_webhook&email=';
 
-            $links_array[] = '<a href="https://disciple.tools">Disciple.Tools Community</a>'; // @todo replace with your links.
-            // @todo add other links here
+        if ( ! $link || !current_user_can( 'manage_options' ) ) {
+            return $actions;
         }
 
-        return $links_array;
+
+        $actions['resend_vpn_email'] = sprintf(
+            '<a href="%s">%s</a>',
+            esc_url($link . $user->user_email),
+            esc_html__('Send VPN key', 'dt-outline-vpn')
+        );
+
+        return $actions;
+    }
+
+    public function action_init()
+    {
+        if (!isset($_REQUEST['action'])) {
+            return;
+        }
+
+        if ( !current_user_can( 'manage_options' ) ) {
+            wp_die(esc_html__('Could not send VPN key.', 'disciple-tools-outline-vpn'), 403);
+            exit;
+        }
+
+        $current_user = (is_user_logged_in()) ? wp_get_current_user() : null;
+
+        switch ($_REQUEST['action']) {
+
+            // We're attempting to switch to another user:
+            case 'trigger_outline_vpn_webhook':
+                $link = get_option( "dt_outline_vpn_webhook_url" );
+                // curl -X POST https://hooks.zapier.com/hooks/catch/5754004/o2dljqf/ -d '{ "data__user_email" : "nharvest@protonmail.com"}'
+                if ( isset( $_REQUEST['email'] ) && isset( $link ) ) {
+                    $email = $_REQUEST['email'];
+                    // error_log( 'triggered: ' . $email);
+
+                    $args = array(
+                        'method' => 'POST',
+                        'body' => json_encode(array(
+                            'data__user_email' => $email
+                        )),
+                    );
+
+                    // POST the data to the endpoint
+                    $result = wp_remote_post( $link, $args );
+
+                    if (is_wp_error( $result )) {
+                        echo '<div id="message" class="error notice is-dismissible"><p>'
+                            . __('Error sending request to webhook.', 'disciple-tools-outline-vpn')
+                            . '</p></div>';
+                    } else {
+                        echo '<div id="message" class="updated notice is-dismissible"><p>'
+                            . __('Sent VPN key to user: ', 'disciple-tools-outline-vpn')
+                            . $email
+                            . '</p></div>';
+                    }
+                } else if ( !isset( $_REQUEST['email'] ) ) {
+                    echo '<div id="message" class="error notice is-dismissible"><p>'
+                        . __('Could not send VPN key. Email address is missing.', 'disciple-tools-outline-vpn')
+                        . '</p></div>';
+                } else if ( !isset( $link ) ) {
+                    echo '<div id="message" class="error notice is-dismissible"><p>'
+                        . __('Could not send VPN key. Webhook URL is not configured.', 'disciple-tools-outline-vpn')
+                        . '</p></div>';
+                } else {
+                    echo '<div id="message" class="error notice is-dismissible"><p>'
+                        . __('Could not send VPN key.', 'disciple-tools-outline-vpn')
+                        . '</p></div>';
+                }
+
+                break;
+        }
     }
 
     /**
