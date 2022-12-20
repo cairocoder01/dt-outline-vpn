@@ -2,7 +2,7 @@
 
 ## readme format:
 
-![Plugin Banner](https://raw.githubusercontent.com/cairocoder01/disciple-tools-outline-vpn/b30402d97895e3f911efcb47fb8f29ccd1eb92e5/documentation/banner.png)
+![Plugin Banner](https://raw.githubusercontent.com/cairocoder01/dt-outline-vpn/b30402d97895e3f911efcb47fb8f29ccd1eb92e5/documentation/banner.png)
 
 # Disciple.Tools - Outline VPN
 

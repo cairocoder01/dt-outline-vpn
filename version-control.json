@@ -1,24 +1,24 @@
 {
   "name": "Disciple.Tools - Outline VPN",
-  "version": "0.2",
+  "version": "0.3",
   "last_updated": "2022-12-20",
   "author": "cairocoder01",
   "author_homepage": "https://github.com/cairocoder01",
   "git_owner": "cairocoder01",
   "git_repo": "disciple-tools-outline-vpn",
-  "download_url": "https://github.com/cairocoder01/disciple-tools-outline-vpn/releases/latest/download/cairocoder01/disciple-tools-outline-vpn.zip",
-  "homepage": "https://github.com/cairocoder01/disciple-tools-outline-vpn",
-  "issues_url": "https://github.com/cairocoder01/disciple-tools-outline-vpn/issues",
-  "license_url": "https://raw.githubusercontent.com/cairocoder01/disciple-tools-outline-vpn/master/LICENSE",
-  "readme_url": "https://raw.githubusercontent.com/cairocoder01/disciple-tools-outline-vpn/master/README.md",
+  "download_url": "https://github.com/cairocoder01/dt-outline-vpn/releases/latest/download/cairocoder01/disciple-tools-outline-vpn.zip",
+  "homepage": "https://github.com/cairocoder01/dt-outline-vpn",
+  "issues_url": "https://github.com/cairocoder01/dt-outline-vpn/issues",
+  "license_url": "https://raw.githubusercontent.com/cairocoder01/dt-outline-vpn/master/LICENSE",
+  "readme_url": "https://raw.githubusercontent.com/cairocoder01/dt-outline-vpn/master/README.md",
   "requires": "4.7",
   "tested": "6.1.1",
   "upgrade_notice": "Upgrade to get the latest features.",
   "banners": {
-    "low": "https://raw.githubusercontent.com/cairocoder01/disciple-tools-outline-vpn/master/documentation/banner.png",
-    "high": "https://raw.githubusercontent.com/cairocoder01/disciple-tools-outline-vpn/master/documentation/banner.png"
+    "low": "https://raw.githubusercontent.com/cairocoder01/dt-outline-vpn/master/documentation/banner.png",
+    "high": "https://raw.githubusercontent.com/cairocoder01/dt-outline-vpn/master/documentation/banner.png"
   },
-  "icon": "https://raw.githubusercontent.com/cairocoder01/disciple-tools-outline-vpn/master/documentation/icon.png",
+  "icon": "https://raw.githubusercontent.com/cairocoder01/dt-outline-vpn/master/documentation/icon.png",
   "sections": {
     "description": "Kick start your Disciple.Tools plugin project with this template! This plugin is a collection of our best practices and code bases for creating Disciple.Tools plugins. ",
     "installation": "(Required) You must have Disciple.Tools Theme installed before using this plugin. Once Disciple.Tools is installed, you can use the normal Plugin system to install the plugin.",

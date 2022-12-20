@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: Disciple.Tools - Outline VPN
- * Plugin URI: https://github.com/cairocoder01/disciple-tools-outline-vpn
+ * Plugin URI: https://github.com/cairocoder01/dt-outline-vpn
  * Description: Disciple.Tools - Outline VPN is intended to integrate login security using Outline VPN.
  * Text Domain: disciple-tools-outline-vpn
  * Domain Path: /languages
- * Version:  0.2
+ * Version:  0.3
  * Author URI: https://github.com/cairocoder01
- * GitHub Plugin URI: https://github.com/cairocoder01/disciple-tools-outline-vpn
+ * GitHub Plugin URI: https://github.com/cairocoder01/dt-outline-vpn
  * Requires at least: 4.7.0
  * (Requires 4.7+ because of the integration of the REST API at 4.7 and the security requirements of this milestone version.)
  * Tested up to: 6.1.1
@@ -339,7 +339,7 @@ add_action( 'plugins_loaded', function (){
        }
        if ( class_exists( 'Puc_v4_Factory' ) ){
            Puc_v4_Factory::buildUpdateChecker(
-               'https://raw.githubusercontent.com/cairocoder01/disciple-tools-outline-vpn/master/version-control.json',
+               'https://raw.githubusercontent.com/cairocoder01/dt-outline-vpn/master/version-control.json',
                __FILE__,
                'disciple-tools-outline-vpn'
            );

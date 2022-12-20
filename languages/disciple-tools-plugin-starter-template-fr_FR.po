@@ -317,7 +317,7 @@ msgid "Disciple Tools - Outline VPN"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "https://github.com/cairocoder01/disciple-tools-outline-vpn"
+msgid "https://github.com/cairocoder01/dt-outline-vpn"
 msgstr ""
 
 #. Description of the plugin/theme
