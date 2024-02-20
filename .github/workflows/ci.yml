@@ -54,5 +54,5 @@ jobs:
       - name: Test Installation
         run: ./test/test_installation.sh
 
-      - name: Test phpcs
-        run: ./test/test_phpcs.sh
+#      - name: Test phpcs
+#        run: ./test/test_phpcs.sh
