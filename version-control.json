@@ -1,7 +1,7 @@
 {
   "name": "Disciple.Tools - Outline VPN",
-  "version": "0.3",
-  "last_updated": "2022-12-20",
+  "version": "0.4",
+  "last_updated": "2024-02-20",
   "author": "cairocoder01",
   "author_homepage": "https://github.com/cairocoder01",
   "git_owner": "cairocoder01",
@@ -12,7 +12,7 @@
   "license_url": "https://raw.githubusercontent.com/cairocoder01/dt-outline-vpn/master/LICENSE",
   "readme_url": "https://raw.githubusercontent.com/cairocoder01/dt-outline-vpn/master/README.md",
   "requires": "4.7",
-  "tested": "6.1.1",
+  "tested": "6.4.3",
   "upgrade_notice": "Upgrade to get the latest features.",
   "banners": {
     "low": "https://raw.githubusercontent.com/cairocoder01/dt-outline-vpn/master/documentation/banner.png",

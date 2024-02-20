@@ -5,7 +5,7 @@
  * Description: Disciple.Tools - Outline VPN is intended to integrate login security using Outline VPN.
  * Text Domain: disciple-tools-outline-vpn
  * Domain Path: /languages
- * Version:  0.3
+ * Version:  0.4
  * Author URI: https://github.com/cairocoder01
  * GitHub Plugin URI: https://github.com/cairocoder01/dt-outline-vpn
  * Requires at least: 4.7.0
@@ -127,7 +127,7 @@ class Disciple_Tools_Outline_VPN {
 
     public function action_init()
     {
-        if (!isset($_REQUEST['action'])) {
+        if (!isset($_REQUEST['action']) || $_REQUEST['action'] !== 'trigger_outline_vpn_webhook') {
             return;
         }
 
